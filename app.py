@@ -1,7 +1,7 @@
 import streamlit as st 
 from av_api import get_timeseries
 from conf import DICT_STOCK_LABELS
-import matplotlib.pyplot as plt
+from plot import plot_timeseries
 
 
 def main():
@@ -20,12 +20,7 @@ def main():
     data = get_timeseries(selected_stock, periodicity=selected_periodicity)
 
     # Plot selected data against timestamp
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.plot(data["timestamp"], data[selected_data], marker='o', linestyle='-')
-    ax.set_title(f"{DICT_STOCK_LABELS[selected_stock]} - {selected_data.capitalize()} Price")
-    ax.set_xlabel("Date")
-    ax.set_ylabel(selected_data.capitalize())
-    plt.xticks(rotation=45)
+    fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity)
     st.pyplot(fig)
 
 
