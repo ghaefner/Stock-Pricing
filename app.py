@@ -7,14 +7,16 @@ from plot import plot_timeseries
 def main():
     st.title("Alpha Vantage Stock Visualizer")
 
+    st.sidebar.title("Options")
+
     # Dropdown menu for selecting stock
-    selected_stock = st.selectbox("Select a stock", list(DICT_STOCK_LABELS.keys()), index=0)
+    selected_stock = st.sidebar.selectbox("Select a stock", list(DICT_STOCK_LABELS.keys()), index=0)
 
     # Dropdown menu for selecting data type
-    selected_data = st.selectbox("Select data type", ["open", "high", "close", "low"], index=2)
+    selected_data = st.sidebar.selectbox("Select data type", ["open", "high", "close", "low"], index=2)
 
     # Dropdown menu for selecting periodicity
-    selected_periodicity = st.selectbox("Select periodicity", ["daily", "weekly", "monthly"], index=0)
+    selected_periodicity = st.sidebar.selectbox("Select periodicity", ["daily", "weekly", "monthly"], index=0)
 
     # Get time series data
     data = get_timeseries(selected_stock, periodicity=selected_periodicity)
