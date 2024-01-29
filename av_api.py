@@ -7,13 +7,13 @@ from conf import AV_API_KEY, BASE_URL
 
 
 # Functins to access stock data
-def get_timeseries(stock_label: str, periodicity = "daily", API_KEY = AV_API_KEY) -> DataFrame:
+def get_timeseries(stock_label: str, periodicity = "daily") -> DataFrame:
     
     if periodicity not in ["daily", "weekly", "monthly"]:
         print("No correct periodicity provided. Daily stock prices are used as default.")
         periodicity = "daily"
     
-    full_url = f"{BASE_URL}function=TIME_SERIES_{periodicity.upper()}&symbol={stock_label}&apikey={API_KEY}&datatype=csv"
+    full_url = f"{BASE_URL}function=TIME_SERIES_{periodicity.upper()}&symbol={stock_label}&apikey={AV_API_KEY}&datatype=csv"
     
     
     r = requests.get(full_url).content
@@ -22,4 +22,13 @@ def get_timeseries(stock_label: str, periodicity = "daily", API_KEY = AV_API_KEY
     return data
 
 
+# Get foreign exchange rate
+def get_fex_rate_usd(to_currency: str, from_currency="USD") -> float:
+    
+    full_url = f"{BASE_URL}function=CURRENCY_EXCHANGE_RATE&from_currency={from_currency}&to_currency={to_currency}&apikey={AV_API_KEY}"
+
+    r = requests.get(full_url)
+    data = r.json()
+
+    return (data['Realtime Currency Exchange Rate'])['5. Exchange Rate']
 
