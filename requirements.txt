@@ -1,0 +1,7 @@
+pandas
+python-dotenv
+requests
+streamlit
+alpha_vantage
+beautifulsoup4
+matplotlib
