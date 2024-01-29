@@ -18,11 +18,14 @@ def main():
     # Dropdown menu for selecting periodicity
     selected_periodicity = st.sidebar.selectbox("Select periodicity", ["daily", "weekly", "monthly"], index=0)
 
+    # Dropdown menu for selecting currency
+    selected_currency = st.sidebar.selectbox("Select currency", ["USD", "EUR", "GBP", "CAD", "JPY", "CNY"], index=0)
+
     # Get time series data
     data = get_timeseries(selected_stock, periodicity=selected_periodicity)
 
     # Plot selected data against timestamp
-    fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity)
+    fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)
     st.pyplot(fig)
 
 
