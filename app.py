@@ -1,6 +1,6 @@
 import streamlit as st 
 from av_api import get_timeseries, calc_new_currency
-from conf import DICT_STOCK_LABELS
+from conf import DICT_STOCK_LABELS, STOCK
 from plot import plot_timeseries
 
 
@@ -13,7 +13,7 @@ def main():
     selected_stock = st.sidebar.selectbox("Select a stock", list(DICT_STOCK_LABELS.keys()), index=0)
 
     # Dropdown menu for selecting data type
-    selected_data = st.sidebar.selectbox("Select data type", ["open", "high", "close", "low"], index=2)
+    selected_data = st.sidebar.selectbox("Select data type", [STOCK.OPEN, STOCK.HIGH, STOCK.CLOSE, STOCK.LOW], index=2)
 
     # Dropdown menu for selecting periodicity
     selected_periodicity = st.sidebar.selectbox("Select periodicity", ["daily", "weekly", "monthly"], index=0)

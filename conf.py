@@ -13,3 +13,10 @@ DICT_STOCK_LABELS = {
     "GOOGL": "Alphabet Inc."
 }
 
+
+# Labels for stock data
+class STOCK:
+    OPEN = "open"
+    HIGH = "high"
+    LOW = "low"
+    CLOSE = "close"

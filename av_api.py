@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from pandas import DataFrame, read_csv
 import io
-from conf import AV_API_KEY, BASE_URL
+from conf import AV_API_KEY, BASE_URL, STOCK
 
 
 # Functins to access stock data
@@ -37,7 +37,7 @@ def get_fex_rate_usd(to_currency: str, from_currency="USD") -> float:
 # Transform USD to new currency in stock data
 def calc_new_currency(data: DataFrame, to_currency: str) -> DataFrame:
     exchange_rate_to_usd = get_fex_rate_usd(to_currency)
-    data[['open', 'high', 'low', 'close']] *= exchange_rate_to_usd
+    data[[STOCK.OPEN, STOCK.HIGH, STOCK.LOW, STOCK.CLOSE]] *= exchange_rate_to_usd
 
     return data
     
