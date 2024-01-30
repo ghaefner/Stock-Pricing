@@ -21,12 +21,18 @@ def main():
     # Dropdown menu for selecting currency
     selected_currency = st.sidebar.selectbox("Select currency", ["USD", "EUR", "GBP", "CAD", "JPY", "CNY"], index=0)
 
-    # Get time series data
-    data = get_timeseries(selected_stock, periodicity=selected_periodicity)
 
-    # Transform
-    if selected_currency != "USD":
-        data = calc_new_currency(data=data, to_currency=selected_currency)
+    # Get previous selected currency from session state, USD is default value
+    prev_selected_currency = st.session_state.get("selected_currency", "USD")
+
+    if selected_currency != prev_selected_currency:
+        # Get timeseries data
+        data = get_timeseries(selected_stock, periodicity=selected_periodicity)
+        # Transform currency, if necessary
+        if selected_currency != "USD":
+            data = calc_new_currency(data=data, to_currency=selected_currency)
+    else:
+        data = get_timeseries(selected_stock, periodicity=selected_periodicity)
 
     # Plot selected data against timestamp
     fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)
