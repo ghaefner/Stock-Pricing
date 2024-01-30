@@ -32,3 +32,16 @@ def get_fex_rate_usd(to_currency: str, from_currency="USD") -> float:
 
     return (data['Realtime Currency Exchange Rate'])['5. Exchange Rate']
 
+# Transform USD to new currency in stock data
+def calc_new_currency(data: DataFrame, to_currency: str) -> DataFrame:
+    exchange_rate_to_usd = get_fex_rate_usd(to_currency)
+    data[['open', 'high', 'low', 'close']] *= exchange_rate_to_usd
+
+    return data
+
+
+
+
+dat = get_timeseries("AAPL")
+print(dat)
+    

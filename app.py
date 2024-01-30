@@ -1,5 +1,5 @@
 import streamlit as st 
-from av_api import get_timeseries
+from av_api import get_timeseries, calc_new_currency
 from conf import DICT_STOCK_LABELS
 from plot import plot_timeseries
 
@@ -23,6 +23,10 @@ def main():
 
     # Get time series data
     data = get_timeseries(selected_stock, periodicity=selected_periodicity)
+
+    # Transform
+    if selected_currency != "USD":
+        data = calc_new_currency(data=data, to_currency=selected_currency)
 
     # Plot selected data against timestamp
     fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)
