@@ -27,7 +27,8 @@ def get_timeseries(stock_label: str, periodicity = "daily", currency = "USD") ->
         # Merge the two dataframes on the 'timestamp' column
         merged_data = merge(stock_data, fex_data, on="timestamp", suffixes=("_stock", "_fex"))
         
-        # Get column names from config file 
+        # TODO: FIX problem with merged columns. Maybe go back to separate functions for currency exchange
+        # Get column names from config file       
         # columns_to_multiply = [value for key, value in STOCK.__dict__.items() if not key.startswith('_')]
         columns_to_multiply = ['open', 'close', 'high', 'low']
 
