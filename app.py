@@ -27,12 +27,9 @@ def main():
 
     if selected_currency != prev_selected_currency:
         # Get timeseries data
-        data = get_timeseries(selected_stock, periodicity=selected_periodicity)
-        # Transform currency, if necessary
-        if selected_currency != "USD":
-            data = calc_new_currency(data=data, to_currency=selected_currency)
+        data = get_timeseries(selected_stock, periodicity=selected_periodicity, currency=selected_currency)
     else:
-        data = get_timeseries(selected_stock, periodicity=selected_periodicity)
+        data = get_timeseries(selected_stock, periodicity=selected_periodicity, currency=prev_selected_currency)
 
     # Plot selected data against timestamp
     fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)
