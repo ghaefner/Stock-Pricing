@@ -7,14 +7,14 @@ from conf import AV_API_KEY, BASE_URL, STOCK
 
 
 # Functins to access stock data
-def get_timeseries(stock_label: str, periodicity = "daily") -> DataFrame:
+def get_timeseries(stock_label: str, periodicity = "daily", outputsize="compact") -> DataFrame:
     
     if periodicity not in ["daily", "weekly", "monthly"]:
         print("No correct periodicity provided. Daily stock prices are used as default.")
         periodicity = "daily"
     
     # Get stock time series data
-    full_url_stock = f"{BASE_URL}function=TIME_SERIES_{periodicity.upper()}&symbol={stock_label}&apikey={AV_API_KEY}&datatype=csv"
+    full_url_stock = f"{BASE_URL}function=TIME_SERIES_{periodicity.upper()}&symbol={stock_label}&outputsize={outputsize}&apikey={AV_API_KEY}&datatype=csv"
     r = requests.get(full_url_stock).content
     stock_data = read_csv(StringIO(r.decode("utf-8")))
 
@@ -22,12 +22,12 @@ def get_timeseries(stock_label: str, periodicity = "daily") -> DataFrame:
 
 
 # Get foreign exchange rate
-def get_fex_rate(to_currency: str, periodicity = "daily", from_currency="USD") -> DataFrame:
+def get_fex_rate(to_currency: str, periodicity = "daily", outputsize="compact", from_currency="USD") -> DataFrame:
     if periodicity not in ["daily", "weekly", "monthly"]:
         print("No correct periodicity provided. Daily stock prices are used as default.")
         periodicity = "daily"
     
-    full_url_fex_rate = f"{BASE_URL}function=FX_{periodicity.upper()}&from_symbol=USD&to_symbol=EUR&apikey={AV_API_KEY}&datatype=csv"
+    full_url_fex_rate = f"{BASE_URL}function=FX_{periodicity.upper()}&from_symbol=USD&to_symbol=EUR&outputsize={outputsize}&apikey={AV_API_KEY}&datatype=csv"
     r = requests.get(full_url_fex_rate).content
     fex_data = read_csv(StringIO(r.decode("utf-8")))
 
@@ -74,3 +74,6 @@ df2 = DataFrame({
 print(calc_timeseries_new_currency(df1,df2))
 print("Hello world.")
 '''
+
+test = get_timeseries("AAPL", "daily")
+print(test.head())
