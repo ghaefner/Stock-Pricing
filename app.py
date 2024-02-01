@@ -2,6 +2,7 @@ import streamlit as st
 from av_api import get_timeseries, calc_timeseries_new_currency
 from conf import DICT_STOCK_LABELS, STOCK
 from plot import plot_timeseries
+from datetime import datetime
 
 
 def main():
@@ -28,6 +29,11 @@ def main():
     if selected_currency != "USD":
         data = calc_timeseries_new_currency(stock_data=data, to_currency=selected_currency)
     
+
+     # Slider for selecting time range
+    selected_time_range = st.sidebar.slider("Select time range (months)", 1, 36, 12)
+    
+
     # Plot selected data against timestamp
     fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)
     st.pyplot(fig)
