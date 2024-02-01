@@ -1,5 +1,5 @@
 import streamlit as st 
-from av_api import get_timeseries, calc_new_currency
+from av_api import get_timeseries, calc_timeseries_new_currency
 from conf import DICT_STOCK_LABELS, STOCK
 from plot import plot_timeseries
 
@@ -21,16 +21,13 @@ def main():
     # Dropdown menu for selecting currency
     selected_currency = st.sidebar.selectbox("Select currency", ["USD", "EUR", "GBP", "CAD", "JPY", "CNY"], index=0)
 
+    # Get timeseries data
+    data = get_timeseries(selected_stock, selected_periodicity)
 
-    # Get previous selected currency from session state, USD is default value
-    prev_selected_currency = st.session_state.get("selected_currency", "USD")
-
-    if selected_currency != prev_selected_currency:
-        # Get timeseries data
-        data = get_timeseries(selected_stock, periodicity=selected_periodicity, currency=selected_currency)
-    else:
-        data = get_timeseries(selected_stock, periodicity=selected_periodicity, currency=prev_selected_currency)
-
+    # Calculate new currency if it is selected
+    if selected_currency != "USD":
+        data = calc_timeseries_new_currency(stock_data=data, to_currency=selected_currency)
+    
     # Plot selected data against timestamp
     fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)
     st.pyplot(fig)
