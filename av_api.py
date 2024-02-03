@@ -20,6 +20,21 @@ def get_timeseries(stock_label: str, periodicity = "daily", outputsize="compact"
 
     return stock_data
 
+# Filter data by cutoff date
+def filter_data_by_cutoff(data, n_cutoff):
+    # Calculate the max date from the timestamp column
+    max_date = data['timestamp'].max()
+    
+    # Calculate distinct dates sorted in descending order
+    distinct_dates = sorted(data['timestamp'].unique(), reverse=True)
+    
+    # Select the date at the position n_cutoff counting from last to first
+    if n_cutoff <= len(distinct_dates):
+        cutoff_date = distinct_dates[n_cutoff - 1]
+    else:
+        cutoff_date = distinct_dates[-1]
+     
+    return data[(data['timestamp'] <= max_date) & (data['timestamp'] >= cutoff_date)]
 
 # Get foreign exchange rate
 def get_fex_rate(to_currency: str, periodicity = "daily", outputsize="compact", from_currency="USD") -> DataFrame:
@@ -75,5 +90,5 @@ print(calc_timeseries_new_currency(df1,df2))
 print("Hello world.")
 '''
 
-test = get_timeseries("AAPL", "daily")
-print(test.head())
+#test = get_timeseries("AAPL", "daily")
+#print(test.head())
