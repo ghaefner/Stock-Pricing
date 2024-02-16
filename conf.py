@@ -10,7 +10,15 @@ BASE_URL = 'https://www.alphavantage.co/query?'
 DICT_STOCK_LABELS = {
     "AAPL": "Apple Inc.",
     "MSFT": "Microsoft Corporation",
-    "GOOGL": "Alphabet Inc."
+    "GOOGL": "Alphabet Inc.",
+    "BNTX": "BioNTech SE",
+    "AMZN": "Amazon.com, Inc.",
+    "META": "Meta Platforms, Inc.",
+    "TSLA": "Tesla, Inc.",
+     "JPM": "JPMorgan Chase & Co.",
+    "V": "Visa Inc.",
+    "NVDA": "NVIDIA Corporation",
+    "DIS": "The Walt Disney Company"
 }
 
 
