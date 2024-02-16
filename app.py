@@ -1,6 +1,6 @@
 import streamlit as st 
 from av_api import get_timeseries, calc_timeseries_new_currency, filter_data_by_cutoff
-from conf import DICT_STOCK_LABELS, STOCK
+from conf import DICT_STOCK_LABELS, STOCK, DICT_PERIOD_RANGE
 from plot import plot_timeseries
 from datetime import datetime
 
@@ -24,26 +24,22 @@ def main():
 
   
     # Slider for selecting time range
-    if ( selected_periodicity == "daily"):
-        selected_time_range = st.sidebar.slider("Select time range (days)", 1, 365, 30)
-    elif (selected_periodicity == "weekly"):
-        selected_time_range = st.sidebar.slider("Select time range (weeks)", 1, 156, 10)
-    elif (selected_periodicity == "monthly"):
-        selected_time_range = st.sidebar.slider("Select time range (months)", 1, 120, 12)
+    time_label, range_limits, default_value = DICT_PERIOD_RANGE[selected_periodicity]
+    selected_time_range = st.sidebar.slider(f"Select time range ({time_label})", *range_limits, default_value)
 
     # Get timeseries data according to perdiodicity and time range
-    if (selected_periodicity == "daily" and selected_time_range > 100):
-        data = get_timeseries(selected_stock, selected_periodicity, outputsize="full")
+    if (selected_time_range > 100):
+        outputsize = "full"
     else:
-        data = get_timeseries(selected_stock, selected_periodicity)
+        outputsize = "compact"
+    
+    data = get_timeseries(selected_stock, selected_periodicity, outputsize=outputsize)
 
     data = filter_data_by_cutoff(data, n_cutoff=selected_time_range)
     
     # Calculate new currency if it is selected
     if selected_currency != "USD":
         data = calc_timeseries_new_currency(stock_data=data, to_currency=selected_currency)
-
-    
 
     # Plot selected data against timestamp
     fig = plot_timeseries(data, selected_data, selected_stock, selected_periodicity, selected_currency)

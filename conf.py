@@ -20,3 +20,11 @@ class STOCK:
     HIGH = "high"
     LOW = "low"
     CLOSE = "close"
+
+# Periodicty to range dictionary
+# Define mapping of periodicity to time range labels and ranges
+DICT_PERIOD_RANGE = {
+    "daily": ("days", (1, 365), 30),
+    "weekly": ("weeks", (1, 156), 10),
+    "monthly": ("months", (1, 120), 12)
+}
