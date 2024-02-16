@@ -13,8 +13,7 @@ def plot_timeseries(data: DataFrame, selected_data: str, selected_stock: str, se
     ax.set_title(f"{DICT_STOCK_LABELS[selected_stock]} - {selected_data.capitalize()} Price ({selected_periodicity.capitalize()})")
     
     # Set axes labels
-    ## ax.set_xlabel("Date")
-    ax.set_ylabel(f"{selected_data.capitalize()} ({selected_currency})")
+    ax.set_ylabel(f"{DICT_STOCK_LABELS[selected_stock].capitalize()} ({selected_currency})")
 
     # Format y-axis tick labels to include dot for thousands
     formatter = FuncFormatter(lambda x, _: '{:,.0f}'.format(x).replace(',', '.'))
