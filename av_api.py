@@ -66,29 +66,3 @@ def calc_timeseries_new_currency(stock_data: DataFrame, to_currency: str) -> Dat
         
 
         return merged_data[['timestamp'] + columns_to_multiply]
-
-
-'''
-# Create test dataframes df1 and df2
-df1 = DataFrame({
-    'timestamp': ['2023-01-01'],
-    'open': [1],
-    'high': [1],
-    'low': [1],
-    'close': [1]
-})
-
-df2 = DataFrame({
-    'timestamp': ['2023-01-01'],
-    'open': [0.5],
-    'high': [0.5],
-    'low': [0.5],
-    'close': [0.5]
-})
-
-print(calc_timeseries_new_currency(df1,df2))
-print("Hello world.")
-'''
-
-#test = get_timeseries("AAPL", "daily")
-#print(test.head())
