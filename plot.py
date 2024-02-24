@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 from pandas import DataFrame
+
 from conf import DICT_STOCK_LABELS
 
 def plot_timeseries(data: DataFrame, selected_data: str, selected_stock: str, selected_periodicity: str, selected_currency: str) -> plt.Figure:

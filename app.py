@@ -1,8 +1,8 @@
 import streamlit as st 
 from av_api import get_timeseries, calc_timeseries_new_currency, filter_data_by_cutoff
-from conf import DICT_STOCK_LABELS, STOCK, DICT_PERIOD_RANGE
 from plot import plot_timeseries
-from datetime import datetime
+
+from conf import DICT_STOCK_LABELS, STOCK, DICT_PERIOD_RANGE
 
 
 def main():

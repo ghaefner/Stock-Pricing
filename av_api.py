@@ -1,8 +1,8 @@
-from alpha_vantage.timeseries import TimeSeries
 import requests
-from bs4 import BeautifulSoup
 from pandas import DataFrame, read_csv, merge
 from io import StringIO
+from alpha_vantage.timeseries import TimeSeries
+
 from conf import AV_API_KEY, BASE_URL, STOCK, TIMESTAMP
 
 
