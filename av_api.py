@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from pandas import DataFrame, read_csv, merge
 from io import StringIO
-from conf import AV_API_KEY, BASE_URL, STOCK
+from conf import AV_API_KEY, BASE_URL, STOCK, TIMESTAMP
 
 
 # Functins to access stock data
@@ -23,10 +23,10 @@ def get_timeseries(stock_label: str, periodicity = "daily", outputsize="compact"
 # Filter data by cutoff date
 def filter_data_by_cutoff(data, n_cutoff):
     # Calculate the max date from the timestamp column
-    max_date = data['timestamp'].max()
+    max_date = data[TIMESTAMP].max()
     
     # Calculate distinct dates sorted in descending order
-    distinct_dates = sorted(data['timestamp'].unique(), reverse=True)
+    distinct_dates = sorted(data[TIMESTAMP].unique(), reverse=True)
     
     # Select the date at the position n_cutoff counting from last to first
     if n_cutoff <= len(distinct_dates):
@@ -34,7 +34,7 @@ def filter_data_by_cutoff(data, n_cutoff):
     else:
         cutoff_date = distinct_dates[-1]
      
-    return data[(data['timestamp'] <= max_date) & (data['timestamp'] >= cutoff_date)]
+    return data[(data[TIMESTAMP] <= max_date) & (data[TIMESTAMP] >= cutoff_date)]
 
 # Get foreign exchange rate
 def get_fex_rate(to_currency: str, periodicity = "daily", outputsize="compact", from_currency="USD") -> DataFrame:
@@ -55,7 +55,7 @@ def calc_timeseries_new_currency(stock_data: DataFrame, to_currency: str) -> Dat
         fex_data = get_fex_rate(to_currency=to_currency)
 
         # Merge the two dataframes on the 'timestamp' column
-        merged_data = merge(stock_data, fex_data, on="timestamp", suffixes=("_stock", "_fex"))
+        merged_data = merge(stock_data, fex_data, on=TIMESTAMP, suffixes=("_stock", "_fex"))
         
         # Get column names from config file       
         columns_to_multiply = [value for key, value in STOCK.__dict__.items() if not key.startswith('_')]
@@ -65,4 +65,4 @@ def calc_timeseries_new_currency(stock_data: DataFrame, to_currency: str) -> Dat
             merged_data[column] = merged_data[f'{column}_stock'] * merged_data[f'{column}_fex']
         
 
-        return merged_data[['timestamp'] + columns_to_multiply]
+        return merged_data[[TIMESTAMP] + columns_to_multiply]
