@@ -48,7 +48,7 @@ def get_fex_rate(to_currency: str, periodicity = "daily", outputsize="compact", 
         print("No correct periodicity provided. Daily stock prices are used as default.")
         periodicity = "daily"
     
-    full_url_fex_rate = f"{BASE_URL}function=FX_{periodicity.upper()}&from_symbol=USD&to_symbol=EUR&outputsize={outputsize}&apikey={AV_API_KEY}&datatype=csv"
+    full_url_fex_rate = f"{BASE_URL}function=FX_{periodicity.upper()}&from_symbol=USD&to_symbol={to_currency}&outputsize={outputsize}&apikey={AV_API_KEY}&datatype=csv"
     r = requests.get(full_url_fex_rate).content
     fex_data = read_csv(StringIO(r.decode("utf-8")))
 
