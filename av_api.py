@@ -18,6 +18,12 @@ def get_timeseries(stock_label: str, periodicity = "daily", outputsize="compact"
     r = requests.get(full_url_stock).content
     stock_data = read_csv(StringIO(r.decode("utf-8")))
 
+    print(stock_data.columns)
+
+    # Ensure 'timestamp' column is present
+    if TIMESTAMP not in stock_data.columns:
+        raise KeyError("The 'timestamp' column is missing in the data.")
+    
     return stock_data
 
 # Filter data by cutoff date
