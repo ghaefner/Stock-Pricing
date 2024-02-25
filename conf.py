@@ -18,10 +18,19 @@ DICT_STOCK_LABELS = {
     "AMZN": "Amazon.com, Inc.",
     "META": "Meta Platforms, Inc.",
     "TSLA": "Tesla, Inc.",
-     "JPM": "JPMorgan Chase & Co.",
+    "JPM": "JPMorgan Chase & Co.",
     "V": "Visa Inc.",
     "NVDA": "NVIDIA Corporation",
-    "DIS": "The Walt Disney Company"
+    "DIS": "The Walt Disney Company",
+    "NFLX": "Netflix, Inc.",
+    "CRM": "Salesforce.com, Inc.",
+    "BRK-A": "Berkshire Hathaway Inc.",
+    "PYPL": "PayPal Holdings, Inc.",
+    "UNH": "UnitedHealth Group Incorporated",
+    "HD": "The Home Depot, Inc.",
+    "BAC": "Bank of America Corporation",
+    "INTC": "Intel Corporation",
+    "CSCO": "Cisco Systems, Inc."
 }
 
 
