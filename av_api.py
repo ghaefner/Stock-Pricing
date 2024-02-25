@@ -64,11 +64,12 @@ def calc_timeseries_new_currency(stock_data: DataFrame, to_currency: str) -> Dat
         merged_data = merge(stock_data, fex_data, on=TIMESTAMP, suffixes=("_stock", "_fex"))
         
         # Get column names from config file       
-        columns_to_multiply = [value for key, value in STOCK.__dict__.items() if not key.startswith('_')]
-
+        columns_to_multiply = [ STOCK.OPEN, STOCK.CLOSE, STOCK.HIGH, STOCK.LOW ] 
+        
         # Multiply columns pairwise
         for column in columns_to_multiply:
             merged_data[column] = merged_data[f'{column}_stock'] * merged_data[f'{column}_fex']
         
+        merged_data[STOCK.VOL] = merged_data[f'{STOCK.VOL}_stock']
 
-        return merged_data[[TIMESTAMP] + columns_to_multiply]
+        return merged_data[[TIMESTAMP] + columns_to_multiply + [STOCK.VOL]]
