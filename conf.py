@@ -40,6 +40,7 @@ class STOCK:
     HIGH = "high"
     LOW = "low"
     CLOSE = "close"
+    VOL = "volume"
 
 # Periodicty to range dictionary
 ## Define mapping of periodicity to time range labels and ranges
